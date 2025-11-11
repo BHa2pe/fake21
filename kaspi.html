@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Карманное удостоверение</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: white;
+      color: #222;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      border-bottom: 1px solid #ccc;
+      background: #f8f8f8;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 12px 0;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .tab.active {
+      border-bottom: 2px solid #000;
+      font-weight: bold;
+    }
+
+    .page {
+      flex: 1;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+      width: 100%;
+      display: flex;
+    }
+
+    .section {
+      flex: 0 0 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    input[type=file] {
+      display: none;
+    }
+
+    .upload-btn {
+      background: #e0e0e0;
+      color: #000;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    .upload-btn:active {
+      background: #d0d0d0;
+    }
+
+    .preview {
+      width: 100%;
+      border-radius: 8px;
+      display: none;
+      margin-top: 10px;
+    }
+
+    .action-btn {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 10px;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      background: #f0f0f0;
+    }
+
+    .field {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+
+    .field input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      padding: 5px;
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .copy-btn:active {
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tabs">
+    <div class="tab active" id="tab1">Документ</div>
+    <div class="tab" id="tab2">Реквизиты</div>
+  </div>
+
+  <div class="page" id="page">
+    <!-- Вкладка Документ -->
+    <div class="section" id="documentSection">
+      <label class="upload-btn" id="uploadBtn" for="fileInput">Загрузить документ</label>
+      <input type="file" accept="image/*" id="fileInput">
+      <img id="preview" class="preview" alt="Фото документа">
+      <button class="action-btn" id="showBtn" style="display:none;" onclick="alert('Документ предъявлен')">Предъявить документ</button>
+      <button class="action-btn" id="sendBtn" style="display:none;" onclick="alert('Документ отправлен')">Отправить документ</button>
+    </div>
+
+    <!-- Вкладка Реквизиты -->
+    <div class="section" id="infoSection">
+      <div class="field">
+        <input type="text" id="fio" placeholder="ФИО">
+        <button class="copy-btn" onclick="copyField('fio')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="iin" placeholder="ИИН">
+        <button class="copy-btn" onclick="copyField('iin')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="birth" placeholder="Дата рождения">
+        <button class="copy-btn" onclick="copyField('birth')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="docnum" placeholder="Номер документа">
+        <button class="copy-btn" onclick="copyField('docnum')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="issue" placeholder="Дата выдачи">
+        <button class="copy-btn" onclick="copyField('issue')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="expire" placeholder="Срок действия">
+        <button class="copy-btn" onclick="copyField('expire')">📋</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Переключение вкладок
+    const tab1 = document.getElementById('tab1');
+    const tab2 = document.getElementById('tab2');
+    const page = document.getElementById('page');
+
+    tab1.addEventListener('click', () => {
+      page.style.transform = 'translateX(0%)';
+      tab1.classList.add('active');
+      tab2.classList.remove('active');
+    });
+
+    tab2.addEventListener('click', () => {
+      page.style.transform = 'translateX(-100%)';
+      tab2.classList.add('active');
+      tab1.classList.remove('active');
+    });
+
+    // Свайп-переключение
+    let startX = 0;
+    page.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+    page.addEventListener('touchend', e => {
+      const endX = e.changedTouches[0].clientX;
+      if (startX - endX > 50) tab2.click(); // свайп влево
+      if (endX - startX > 50) tab1.click(); // свайп вправо
+    });
+
+    // Загрузка документа
+    const input = document.getElementById('fileInput');
+    const preview = document.getElementById('preview');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const showBtn = document.getElementById('showBtn');
+    const sendBtn = document.getElementById('sendBtn');
+
+    input.addEventListener('change', () => {
+      const file = input.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+          uploadBtn.style.display = 'none';
+          showBtn.style.display = 'block';
+          sendBtn.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Копирование реквизитов
+    function copyField(id) {
+      const input = document.getElementById(id);
+      input.select();
+      document.execCommand('copy');
+      alert('Скопировано: ' + input.value);
+    }
+  </script>
+</body>
+</html>
