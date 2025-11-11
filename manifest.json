@@ -1,0 +1,20 @@
+{
+  "name": "Kaspi.kz",
+  "short_name": "Kaspi.kz",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "kaspi.ico.webp",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "kaspi.ico.webp",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
