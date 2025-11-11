@@ -41,6 +41,7 @@
       font-size: 14px;
     }
 
+    /* Вкладки */
     .tabs {
       display: flex;
       justify-content: space-around;
@@ -61,23 +62,19 @@
       font-weight: bold;
     }
 
+    /* Основная страница */
     .page {
       flex: 1;
       overflow-y: auto;
       transition: transform 0.3s ease;
-      width: 100%;
+      width: 200%;
       display: flex;
     }
 
     .section {
-      flex: 0 0 100%;
+      flex: 0 0 50%;
       padding: 20px;
       box-sizing: border-box;
-    }
-
-    h2 {
-      margin-top: 0;
-      margin-bottom: 10px;
     }
 
     input[type=file] {
@@ -115,18 +112,19 @@
       border: none;
     }
 
+    /* Кнопки */
     #showBtn {
-      background-color: #007bff; 
-      color: white; 
+      background-color: #007bff;
+      color: white;
     }
 
     #sendBtn {
-      background-color: white; 
-      color: #007bff; 
-      border: 1px solid #007bff; 
+      background-color: white;
+      color: #007bff;
+      border: 1px solid #007bff;
     }
 
-    /* Новые стили для реквизитов */
+    /* Реквизиты */
     .field {
       display: flex;
       justify-content: space-between;
@@ -137,12 +135,12 @@
 
     .label {
       font-size: 9px;
-      color: #888; 
+      color: #888;
     }
 
     .value {
       font-size: 12px;
-      color: #000; 
+      color: #000;
       text-align: right;
     }
 
@@ -184,37 +182,12 @@
 
     <!-- Вкладка Реквизиты -->
     <div class="section" id="infoSection">
-      <h2>Реквизиты</h2>
-
-      <div class="field">
-        <div class="label">ФИО</div>
-        <div class="value">Бахчанов Нурсултан Талгатулы</div>
-      </div>
-
-      <div class="field">
-        <div class="label">ИИН</div>
-        <div class="value">040715550451</div>
-      </div>
-
-      <div class="field">
-        <div class="label">Дата рождения</div>
-        <div class="value">15.07.2004</div>
-      </div>
-
-      <div class="field">
-        <div class="label">Номер документа</div>
-        <div class="value">051728356</div>
-      </div>
-
-      <div class="field">
-        <div class="label">Дата выдачи</div>
-        <div class="value">03.12.2020</div>
-      </div>
-
-      <div class="field">
-        <div class="label">Срок действия</div>
-        <div class="value">02.12.2030</div>
-      </div>
+      <div class="field"><div class="label">ФИО</div><div class="value">Бахчанов Нурсултан Талгатулы</div></div>
+      <div class="field"><div class="label">ИИН</div><div class="value">040715550451</div></div>
+      <div class="field"><div class="label">Дата рождения</div><div class="value">15.07.2004</div></div>
+      <div class="field"><div class="label">Номер документа</div><div class="value">051728356</div></div>
+      <div class="field"><div class="label">Дата выдачи</div><div class="value">03.12.2020</div></div>
+      <div class="field"><div class="label">Срок действия</div><div class="value">02.12.2030</div></div>
     </div>
   </div>
 
@@ -230,7 +203,7 @@
     });
 
     tab2.addEventListener('click', () => {
-      page.style.transform = 'translateX(-100%)';
+      page.style.transform = 'translateX(-50%)';
       tab2.classList.add('active');
       tab1.classList.remove('active');
     });
