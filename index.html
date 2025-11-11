@@ -115,33 +115,35 @@
       border: none;
     }
 
-    /* Кнопка Предъявить документ */
     #showBtn {
-      background-color: #007bff; /* синий фон */
-      color: white; /* белый текст */
+      background-color: #007bff; 
+      color: white; 
     }
 
-    /* Кнопка Отправить документ */
     #sendBtn {
-      background-color: white; /* белый фон */
-      color: #007bff; /* синий текст */
-      border: 1px solid #007bff; /* синий бордер */
+      background-color: white; 
+      color: #007bff; 
+      border: 1px solid #007bff; 
     }
 
+    /* Новые стили для реквизитов */
     .field {
       display: flex;
-      align-items: center;
+      justify-content: space-between;
       margin-bottom: 15px;
       border-bottom: 1px solid #ddd;
       padding-bottom: 5px;
     }
 
-    .field input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: 16px;
-      padding: 5px;
+    .label {
+      font-size: 9px;
+      color: #888; 
+    }
+
+    .value {
+      font-size: 12px;
+      color: #000; 
+      text-align: right;
     }
 
     .copy-btn {
@@ -180,6 +182,41 @@
       <button class="action-btn" id="sendBtn" style="display:none;" onclick="alert('Документ отправлен')">Отправить документ</button>
     </div>
 
+    <!-- Вкладка Реквизиты -->
+    <div class="section" id="infoSection">
+      <h2>Реквизиты</h2>
+
+      <div class="field">
+        <div class="label">ФИО</div>
+        <div class="value">Бахчанов Нурсултан Талгатулы</div>
+      </div>
+
+      <div class="field">
+        <div class="label">ИИН</div>
+        <div class="value">040715550451</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Дата рождения</div>
+        <div class="value">15.07.2004</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Номер документа</div>
+        <div class="value">051728356</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Дата выдачи</div>
+        <div class="value">03.12.2020</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Срок действия</div>
+        <div class="value">02.12.2030</div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const tab1 = document.getElementById('tab1');
@@ -226,14 +263,6 @@
         reader.readAsDataURL(file);
       }
     });
-
-    function copyField(id) {
-      const input = document.getElementById(id);
-      input.select();
-      document.execCommand('copy');
-      alert('Скопировано: ' + input.value);
-    }
   </script>
 </body>
 </html>
-
