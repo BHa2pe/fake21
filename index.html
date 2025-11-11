@@ -113,7 +113,19 @@
       padding: 12px;
       font-size: 16px;
       border: none;
-      background: #f0f0f0;
+    }
+
+    /* Кнопка Предъявить документ */
+    #showBtn {
+      background-color: #007bff; /* синий фон */
+      color: white; /* белый текст */
+    }
+
+    /* Кнопка Отправить документ */
+    #sendBtn {
+      background-color: white; /* белый фон */
+      color: #007bff; /* синий текст */
+      border: 1px solid #007bff; /* синий бордер */
     }
 
     .field {
@@ -161,6 +173,7 @@
   <div class="page" id="page">
     <!-- Вкладка Документ -->
     <div class="section" id="documentSection">
+      <h2>Документ</h2>
       <label class="upload-btn" id="uploadBtn" for="fileInput">Загрузить документ</label>
       <input type="file" accept="image/*" id="fileInput">
       <img id="preview" class="preview" alt="Фото документа">
@@ -168,6 +181,35 @@
       <button class="action-btn" id="sendBtn" style="display:none;" onclick="alert('Документ отправлен')">Отправить документ</button>
     </div>
 
+    <!-- Вкладка Реквизиты -->
+    <div class="section" id="infoSection">
+      <h2>Реквизиты</h2>
+      <div class="field">
+        <input type="text" id="fio" placeholder="ФИО">
+        <button class="copy-btn" onclick="copyField('fio')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="iin" placeholder="ИИН">
+        <button class="copy-btn" onclick="copyField('iin')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="birth" placeholder="Дата рождения">
+        <button class="copy-btn" onclick="copyField('birth')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="docnum" placeholder="Номер документа">
+        <button class="copy-btn" onclick="copyField('docnum')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="issue" placeholder="Дата выдачи">
+        <button class="copy-btn" onclick="copyField('issue')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="expire" placeholder="Срок действия">
+        <button class="copy-btn" onclick="copyField('expire')">📋</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     const tab1 = document.getElementById('tab1');
@@ -224,5 +266,3 @@
   </script>
 </body>
 </html>
-
-
