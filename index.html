@@ -18,6 +18,29 @@
       height: 100vh;
     }
 
+    /* Шапка */
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      border-bottom: 1px solid #ccc;
+      position: relative;
+    }
+
+    .back-btn {
+      font-size: 24px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: bold;
+      font-size: 18px;
+    }
+
     .tabs {
       display: flex;
       justify-content: space-around;
@@ -50,6 +73,11 @@
       flex: 0 0 100%;
       padding: 20px;
       box-sizing: border-box;
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
     }
 
     input[type=file] {
@@ -118,6 +146,13 @@
 </head>
 <body>
 
+  <!-- Шапка -->
+  <div class="header">
+    <div class="back-btn">&lt;</div>
+    <div class="title">Удостоверение личности</div>
+  </div>
+
+  <!-- Вкладки -->
   <div class="tabs">
     <div class="tab active" id="tab1">Документ</div>
     <div class="tab" id="tab2">Реквизиты</div>
@@ -126,6 +161,7 @@
   <div class="page" id="page">
     <!-- Вкладка Документ -->
     <div class="section" id="documentSection">
+      <h2>Документ</h2>
       <label class="upload-btn" id="uploadBtn" for="fileInput">Загрузить документ</label>
       <input type="file" accept="image/*" id="fileInput">
       <img id="preview" class="preview" alt="Фото документа">
@@ -133,10 +169,37 @@
       <button class="action-btn" id="sendBtn" style="display:none;" onclick="alert('Документ отправлен')">Отправить документ</button>
     </div>
 
-
+    <!-- Вкладка Реквизиты -->
+    <div class="section" id="infoSection">
+      <h2>Реквизиты</h2>
+      <div class="field">
+        <input type="text" id="fio" placeholder="ФИО">
+        <button class="copy-btn" onclick="copyField('fio')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="iin" placeholder="ИИН">
+        <button class="copy-btn" onclick="copyField('iin')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="birth" placeholder="Дата рождения">
+        <button class="copy-btn" onclick="copyField('birth')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="docnum" placeholder="Номер документа">
+        <button class="copy-btn" onclick="copyField('docnum')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="issue" placeholder="Дата выдачи">
+        <button class="copy-btn" onclick="copyField('issue')">📋</button>
+      </div>
+      <div class="field">
+        <input type="text" id="expire" placeholder="Срок действия">
+        <button class="copy-btn" onclick="copyField('expire')">📋</button>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // Переключение вкладок
     const tab1 = document.getElementById('tab1');
     const tab2 = document.getElementById('tab2');
     const page = document.getElementById('page');
@@ -153,16 +216,14 @@
       tab1.classList.remove('active');
     });
 
-    // Свайп-переключение
     let startX = 0;
     page.addEventListener('touchstart', e => startX = e.touches[0].clientX);
     page.addEventListener('touchend', e => {
       const endX = e.changedTouches[0].clientX;
-      if (startX - endX > 50) tab2.click(); // свайп влево
-      if (endX - startX > 50) tab1.click(); // свайп вправо
+      if (startX - endX > 50) tab2.click();
+      if (endX - startX > 50) tab1.click();
     });
 
-    // Загрузка документа
     const input = document.getElementById('fileInput');
     const preview = document.getElementById('preview');
     const uploadBtn = document.getElementById('uploadBtn');
@@ -184,7 +245,6 @@
       }
     });
 
-    // Копирование реквизитов
     function copyField(id) {
       const input = document.getElementById(id);
       input.select();
@@ -194,10 +254,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
